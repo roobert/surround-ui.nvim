@@ -28,6 +28,7 @@ local function setup_commands()
 		["q"] = " [quote]",
 	}
 
+	-- FIXME: probably refactor this stuff..
 	local all_targets = {}
 	for k, v in pairs(grammar_targets) do
 		all_targets[k] = v
