@@ -74,7 +74,7 @@ local function setup_commands()
 		end
 	end
 
-	-- change-mappings
+	-- change mappings
 	mappings["<leader>"][config.options.root_key]["c"] = { name = "change" }
 	for char, desc in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["c"][char] = { name = desc }
