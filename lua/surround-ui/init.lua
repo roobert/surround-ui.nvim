@@ -91,6 +91,13 @@ local function setup_commands()
 			{ "<CMD>call feedkeys('ds" .. char .. "')<CR>", "ds" .. char .. target }
 	end
 
+	-- line mappings
+	mappings["<leader>"][config.options.root_key]["s"] = { name = "[s] line" }
+	for char, target in pairs(all_targets) do
+		mappings["<leader>"][config.options.root_key]["s"][char] =
+			{ "<CMD>call feedkeys('yss" .. char .. "')<CR>", "yss" .. char .. target }
+	end
+
 	require("which-key").register(mappings)
 end
 
