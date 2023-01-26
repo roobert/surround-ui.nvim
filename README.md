@@ -1,6 +1,7 @@
 # Surround UI
 
-Hinting for nvim-surround using which-key.
+Hinting for [kylechui/nvim-surround](https://github.com/kylechui/nvim-surround.nvim)
+using [folke/which-key.nvim](https://github.com/folke/which-key.nvim).
 
 ## :rocket: Installation
 
