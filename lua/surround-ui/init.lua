@@ -54,7 +54,7 @@ local function setup_commands()
 		},
 	}
 
-	-- create around mappings
+	-- around mappings
 	mappings["<leader>"][config.options.root_key]["a"] = { name = "around" }
 	for char, desc in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["a"][char] = { name = desc }
@@ -64,7 +64,7 @@ local function setup_commands()
 		end
 	end
 
-	-- create inner mappings
+	-- inner mappings
 	mappings["<leader>"][config.options.root_key]["i"] = { name = "inner" }
 	for char, desc in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["i"][char] = { name = desc }
@@ -74,7 +74,7 @@ local function setup_commands()
 		end
 	end
 
-	-- create change-mappings
+	-- change-mappings
 	mappings["<leader>"][config.options.root_key]["c"] = { name = "change" }
 	for char, desc in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["c"][char] = { name = desc }
@@ -84,7 +84,7 @@ local function setup_commands()
 		end
 	end
 
-	-- create delete mappings
+	-- delete mappings
 	mappings["<leader>"][config.options.root_key]["d"] = { name = "delete" }
 	for char, target in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["d"][char] =
