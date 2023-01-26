@@ -79,6 +79,7 @@ local function setup_commands()
 	for char, desc in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["c"][char] = { name = desc }
 		for ichar, target in pairs(all_targets) do
+			-- FIXME: escape ''s
 			mappings["<leader>"][config.options.root_key]["c"][char][ichar] =
 				{ "<CMD>call feedkeys('cs" .. char .. ichar .. "')<CR>", "cs" .. char .. ichar .. target }
 		end
