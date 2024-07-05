@@ -60,7 +60,7 @@ local function setup_commands()
 		mappings["<leader>"][config.options.root_key]["a"][char] = { name = desc }
 		for ichar, target in pairs(abbreviated_and_grammar_targets) do
 			mappings["<leader>"][config.options.root_key]["a"][char][ichar] =
-				{ "<CMD>call feedkeys('ysa" .. char .. ichar .. "')<CR>", "ysa" .. char .. ichar .. target }
+				{ "<CMD>call feedkeys('ysa" .. (char == "'" and "''" or char) .. (ichar == "'" and "''" or ichar) .. "')<CR>", "ysa" .. char .. ichar .. target }
 		end
 	end
 
@@ -70,7 +70,7 @@ local function setup_commands()
 		mappings["<leader>"][config.options.root_key]["i"][char] = { name = desc }
 		for ichar, target in pairs(all_targets) do
 			mappings["<leader>"][config.options.root_key]["i"][char][ichar] =
-				{ "<CMD>call feedkeys('ysi" .. char .. ichar .. "')<CR>", "ysi" .. char .. ichar .. target }
+				{ "<CMD>call feedkeys('ysi" .. (char == "'" and "''" or char) .. (ichar == "'" and "''" or ichar) .. "')<CR>", "ysi" .. char .. ichar .. target }
 		end
 	end
 
@@ -79,9 +79,8 @@ local function setup_commands()
 	for char, desc in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["c"][char] = { name = desc }
 		for ichar, target in pairs(all_targets) do
-			-- FIXME: escape ''s
 			mappings["<leader>"][config.options.root_key]["c"][char][ichar] =
-				{ "<CMD>call feedkeys('cs" .. char .. ichar .. "')<CR>", "cs" .. char .. ichar .. target }
+				{ "<CMD>call feedkeys('cs" .. (char == "'" and "''" or char) .. (ichar == "'" and "''" or ichar) .. "')<CR>", "cs" .. char .. ichar .. target }
 		end
 	end
 
@@ -89,14 +88,14 @@ local function setup_commands()
 	mappings["<leader>"][config.options.root_key]["d"] = { name = "delete" }
 	for char, target in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["d"][char] =
-			{ "<CMD>call feedkeys('ds" .. char .. "')<CR>", "ds" .. char .. target }
+			{ "<CMD>call feedkeys('ds" .. (char == "'" and "''" or char) .. "')<CR>", "ds" .. char .. target }
 	end
 
 	-- line mappings
 	mappings["<leader>"][config.options.root_key]["s"] = { name = "[s] line" }
 	for char, target in pairs(all_targets) do
 		mappings["<leader>"][config.options.root_key]["s"][char] =
-			{ "<CMD>call feedkeys('yss" .. char .. "')<CR>", "yss" .. char .. target }
+			{ "<CMD>call feedkeys('yss" .. (char == "'" and "''" or char) .. "')<CR>", "yss" .. char .. target }
 	end
 
 	require("which-key").register(mappings)
