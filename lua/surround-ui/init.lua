@@ -48,57 +48,88 @@ local function setup_commands()
 		abbreviated_and_grammar_targets[k] = v
 	end
 
+	local prefix = "<leader>" .. config.options.root_key
 	local mappings = {
-		["<leader>"] = {
-			[config.options.root_key] = { name = "Surround" },
-		},
+		{ prefix, group = "Surround" },
 	}
 
 	-- around mappings
-	mappings["<leader>"][config.options.root_key]["a"] = { name = "around" }
+	local around = { prefix .. "a", group = "around" }
 	for char, desc in pairs(all_targets) do
-		mappings["<leader>"][config.options.root_key]["a"][char] = { name = desc }
+		local around_targets = { prefix .. "a" .. char, desc = desc }
 		for ichar, target in pairs(abbreviated_and_grammar_targets) do
-			mappings["<leader>"][config.options.root_key]["a"][char][ichar] =
-				{ "<CMD>call feedkeys('ysa" .. (char == "'" and "''" or char) .. (ichar == "'" and "''" or ichar) .. "')<CR>", "ysa" .. char .. ichar .. target }
+			table.insert(around_targets, {
+				prefix .. "a" .. char .. ichar,
+				"<CMD>call feedkeys('ysa"
+					.. (char == "'" and "''" or char)
+					.. (ichar == "'" and "''" or ichar)
+					.. "')<CR>",
+				desc = "ysa" .. char .. ichar .. target,
+			})
 		end
+		table.insert(around, around_targets)
 	end
+	table.insert(mappings, around)
 
 	-- inner mappings
-	mappings["<leader>"][config.options.root_key]["i"] = { name = "inner" }
+	local inner = { prefix .. "i", group = "inner" }
 	for char, desc in pairs(all_targets) do
-		mappings["<leader>"][config.options.root_key]["i"][char] = { name = desc }
+		local inner_targets = { prefix .. "i" .. char, desc = desc }
 		for ichar, target in pairs(all_targets) do
-			mappings["<leader>"][config.options.root_key]["i"][char][ichar] =
-				{ "<CMD>call feedkeys('ysi" .. (char == "'" and "''" or char) .. (ichar == "'" and "''" or ichar) .. "')<CR>", "ysi" .. char .. ichar .. target }
+			table.insert(inner_targets, {
+				prefix .. "i" .. char .. ichar,
+				"<CMD>call feedkeys('ysi"
+					.. (char == "'" and "''" or char)
+					.. (ichar == "'" and "''" or ichar)
+					.. "')<CR>",
+				desc = "ysi" .. char .. ichar .. target,
+			})
 		end
+		table.insert(inner, inner_targets)
 	end
+	table.insert(mappings, inner)
 
 	-- change mappings
-	mappings["<leader>"][config.options.root_key]["c"] = { name = "change" }
+	local change = { prefix .. "c", group = "change" }
 	for char, desc in pairs(all_targets) do
-		mappings["<leader>"][config.options.root_key]["c"][char] = { name = desc }
+		local change_targets = { prefix .. "c" .. char, desc = desc }
 		for ichar, target in pairs(all_targets) do
-			mappings["<leader>"][config.options.root_key]["c"][char][ichar] =
-				{ "<CMD>call feedkeys('cs" .. (char == "'" and "''" or char) .. (ichar == "'" and "''" or ichar) .. "')<CR>", "cs" .. char .. ichar .. target }
+			table.insert(change_targets, {
+				prefix .. "c" .. char .. ichar,
+				"<CMD>call feedkeys('cs"
+					.. (char == "'" and "''" or char)
+					.. (ichar == "'" and "''" or ichar)
+					.. "')<CR>",
+				desc = "cs" .. char .. ichar .. target,
+			})
 		end
+		table.insert(change, change_targets)
 	end
+	table.insert(mappings, change)
 
 	-- delete mappings
-	mappings["<leader>"][config.options.root_key]["d"] = { name = "delete" }
+	local delete = { prefix .. "d", group = "delete" }
 	for char, target in pairs(all_targets) do
-		mappings["<leader>"][config.options.root_key]["d"][char] =
-			{ "<CMD>call feedkeys('ds" .. (char == "'" and "''" or char) .. "')<CR>", "ds" .. char .. target }
+		table.insert(delete, {
+			prefix .. "d" .. char,
+			"<CMD>call feedkeys('ds" .. (char == "'" and "''" or char) .. "')<CR>",
+			desc = "ds" .. char .. target,
+		})
 	end
+	table.insert(mappings, delete)
 
 	-- line mappings
-	mappings["<leader>"][config.options.root_key]["s"] = { name = "[s] line" }
+	local line = { prefix .. "s", group = "[s] line" }
 	for char, target in pairs(all_targets) do
-		mappings["<leader>"][config.options.root_key]["s"][char] =
-			{ "<CMD>call feedkeys('yss" .. (char == "'" and "''" or char) .. "')<CR>", "yss" .. char .. target }
+		table.insert(line, {
+			prefix .. "s" .. char,
+			"<CMD>call feedkeys('yss" .. (char == "'" and "''" or char) .. "')<CR>",
+			desc = "yss" .. char .. target,
+		})
 	end
+	table.insert(mappings, line)
 
-	require("which-key").register(mappings)
+	require("which-key").add(mappings)
 end
 
 M.setup = function(options)
