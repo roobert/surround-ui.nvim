@@ -50,11 +50,11 @@ local function setup_commands()
 
 	local prefix = "<leader>" .. config.options.root_key
 	local mappings = {
-		{ prefix, group = "Surround" },
+		{ prefix, group = "Surround", icon = config.options.root_icon },
 	}
 
 	-- around mappings
-	local around = { prefix .. "a", group = "around" }
+	local around = { prefix .. "a", group = "around", icon = "" }
 	for char, desc in pairs(all_targets) do
 		local around_targets = { prefix .. "a" .. char, desc = desc }
 		for ichar, target in pairs(abbreviated_and_grammar_targets) do
@@ -72,7 +72,7 @@ local function setup_commands()
 	table.insert(mappings, around)
 
 	-- inner mappings
-	local inner = { prefix .. "i", group = "inner" }
+	local inner = { prefix .. "i", group = "inner", icon = "" }
 	for char, desc in pairs(all_targets) do
 		local inner_targets = { prefix .. "i" .. char, desc = desc }
 		for ichar, target in pairs(all_targets) do
@@ -90,7 +90,7 @@ local function setup_commands()
 	table.insert(mappings, inner)
 
 	-- change mappings
-	local change = { prefix .. "c", group = "change" }
+	local change = { prefix .. "c", group = "change", icon = "" }
 	for char, desc in pairs(all_targets) do
 		local change_targets = { prefix .. "c" .. char, desc = desc }
 		for ichar, target in pairs(all_targets) do
@@ -108,7 +108,7 @@ local function setup_commands()
 	table.insert(mappings, change)
 
 	-- delete mappings
-	local delete = { prefix .. "d", group = "delete" }
+	local delete = { prefix .. "d", group = "delete", icon = "" }
 	for char, target in pairs(all_targets) do
 		table.insert(delete, {
 			prefix .. "d" .. char,
@@ -119,7 +119,7 @@ local function setup_commands()
 	table.insert(mappings, delete)
 
 	-- line mappings
-	local line = { prefix .. "s", group = "[s] line" }
+	local line = { prefix .. "s", group = "[s] line", icon = "" }
 	for char, target in pairs(all_targets) do
 		table.insert(line, {
 			prefix .. "s" .. char,

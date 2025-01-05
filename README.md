@@ -21,7 +21,8 @@ This plugin uses [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
   },
   config = function()
     require("surround-ui").setup({
-      root_key = "S"
+      root_key = "S",
+      root_icon = ""
     })
   end,
 }
@@ -38,7 +39,8 @@ use({
   },
   config = function()
     require("surround-ui").setup({
-      root_key = "S"
+      root_key = "S",
+      root_icon = ""
     })
   end,
 })
