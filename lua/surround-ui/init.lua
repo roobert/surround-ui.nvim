@@ -53,6 +53,11 @@ local function setup_commands()
 		{ prefix, group = "Surround" },
 	}
 
+	local normal_plugin = "<Plug>(nvim-surround-normal)"
+	local normal_cur_plugin = "<Plug>(nvim-surround-normal-cur)"
+	local change_plugin = "<Plug>(nvim-surround-change)"
+	local delete_plugin = "<Plug>(nvim-surround-delete)"
+
 	-- around mappings
 	local around = { prefix .. "a", group = "around" }
 	for char, desc in pairs(all_targets) do
@@ -60,10 +65,10 @@ local function setup_commands()
 		for ichar, target in pairs(abbreviated_and_grammar_targets) do
 			table.insert(around_targets, {
 				prefix .. "a" .. char .. ichar,
-				"<CMD>call feedkeys('ysa"
-					.. (char == "'" and "''" or char)
-					.. (ichar == "'" and "''" or ichar)
-					.. "')<CR>",
+				normal_plugin
+					.. "a"
+					..char
+					..ichar,
 				desc = "ysa" .. char .. ichar .. target,
 			})
 		end
@@ -78,10 +83,10 @@ local function setup_commands()
 		for ichar, target in pairs(all_targets) do
 			table.insert(inner_targets, {
 				prefix .. "i" .. char .. ichar,
-				"<CMD>call feedkeys('ysi"
-					.. (char == "'" and "''" or char)
-					.. (ichar == "'" and "''" or ichar)
-					.. "')<CR>",
+				normal_plugin
+					.. "i"
+					..char
+					..ichar,
 				desc = "ysi" .. char .. ichar .. target,
 			})
 		end
@@ -96,10 +101,9 @@ local function setup_commands()
 		for ichar, target in pairs(all_targets) do
 			table.insert(change_targets, {
 				prefix .. "c" .. char .. ichar,
-				"<CMD>call feedkeys('cs"
-					.. (char == "'" and "''" or char)
-					.. (ichar == "'" and "''" or ichar)
-					.. "')<CR>",
+				change_plugin
+					..char
+					..ichar,
 				desc = "cs" .. char .. ichar .. target,
 			})
 		end
@@ -112,7 +116,7 @@ local function setup_commands()
 	for char, target in pairs(all_targets) do
 		table.insert(delete, {
 			prefix .. "d" .. char,
-			"<CMD>call feedkeys('ds" .. (char == "'" and "''" or char) .. "')<CR>",
+			delete_plugin ..char,
 			desc = "ds" .. char .. target,
 		})
 	end
@@ -123,7 +127,7 @@ local function setup_commands()
 	for char, target in pairs(all_targets) do
 		table.insert(line, {
 			prefix .. "s" .. char,
-			"<CMD>call feedkeys('yss" .. (char == "'" and "''" or char) .. "')<CR>",
+			normal_cur_plugin ..char,
 			desc = "yss" .. char .. target,
 		})
 	end
