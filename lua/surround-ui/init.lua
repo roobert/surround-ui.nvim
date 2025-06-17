@@ -48,7 +48,7 @@ local function setup_commands()
 		abbreviated_and_grammar_targets[k] = v
 	end
 
-	local prefix = "<leader>" .. config.options.root_key
+	local prefix = config.options.leader_key .. config.options.root_key
 	local mappings = {
 		{ prefix, group = "Surround" },
 	}
